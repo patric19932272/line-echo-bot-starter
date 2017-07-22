@@ -3,7 +3,7 @@ let bodyParser = require('body-parser')
 let request = require('request')
 let app = express()
 
-const CHANNEL_ACCESS_TOKEN = 'Your_Channel_Access_Token'
+const CHANNEL_ACCESS_TOKEN = 'xlGwz5LwbKiQtVMgMRFliSrN8Ru/tuJx87A12dvHASDIgSOmooNbzW5VRbHXtDAstA73V5tWXUl2WbiCjT+m/YXby8X59dFTAAQWqwuNvWGGny9Hml4pFiifDK3SV9IagzxkJzPAFJqHsEcTbt1RlAdB04t89/1O/w1cDnyilFU='
 const PORT = process.env.PORT || 3000
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -14,6 +14,15 @@ app.listen(PORT, function () {
 
 // handler receiving messages
 app.post('/', function (req, res) {
+    let body = req.body
+    let text = body.events[0].message.text
+    let replyToken = body.events[0].replyToken
+    sendMessage(replyToken,text)
+    //console.log(body)
+    console.log(JSON.stringify(body,null,2))
+    //(object,替換的,排版:2格)
+    res.send('')
+    //送東西以免Line不繼續送
 })
 
 // generic function sending messages
